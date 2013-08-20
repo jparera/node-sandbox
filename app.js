@@ -17,23 +17,30 @@
 */
 console.log('[%d] Main process', process.pid, __filename);
 
-process.on('newListener', function(event) {
-	console.log(
-		'[%d] newListener Handler A: New listener has been registered for %s event.',
-		this.pid,
-		event);
-});
+process.on('newListener', onNewListenerA);
+process.on('newListener', onNewListenerB);
 
-process.on('newListener', function(event) {
-	console.log(
-		'[%d] newListener Handler B: New listener has been registered for %s event.',
-		this.pid,
-		event);
-});
+function onNewListenerA(event) {
+	onNewListener.call(this, event, 'Handler A');
+}
 
-process.on('exit', function() {
+function onNewListenerB(event) {
+	onNewListener.call(this, event, 'Handler B');
+}
+
+function onNewListener(event, name) {
+	console.log(
+		'[%d] newListener %s: New listener has been registered for %s event.',
+		this.pid,
+		name,
+		event);
+}
+
+process.on('exit', onProcessExit);
+
+function onProcessExit() {
 	console.log('[%d] Main process will shutdown.', this.pid);
-});
+}
 
 setTimeout(task, 5000);
 
