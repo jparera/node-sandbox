@@ -17,8 +17,10 @@
 */
 console.log('[%d] Main process', process.pid, __filename);
 
-process.on('newListener', onNewListenerA);
-process.on('newListener', onNewListenerB);
+process
+	.on('newListener', onNewListenerA)
+	.on('newListener', onNewListenerB)
+	.on('exit', onProcessExit);
 
 function onNewListenerA(event) {
 	onNewListener.call(this, event, 'Handler A');
@@ -35,8 +37,6 @@ function onNewListener(event, name) {
 		name,
 		event);
 }
-
-process.on('exit', onProcessExit);
 
 function onProcessExit() {
 	console.log('[%d] Main process will shutdown.', this.pid);
