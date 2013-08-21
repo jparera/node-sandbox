@@ -20,6 +20,7 @@ console.log('[%d] Main process', process.pid, __filename);
 process
 	.on('newListener', onNewListenerA)
 	.on('newListener', onNewListenerB)
+	.on('SIGINT', onProcessInterrupt)
 	.on('exit', onProcessExit);
 
 function onNewListenerA(event) {
@@ -36,6 +37,11 @@ function onNewListener(event, name) {
 		this.pid,
 		name,
 		event);
+}
+
+function onProcessInterrupt() {
+	console.log('[%d] Main process was interrupted.', this.pid);
+	this.exit(0);
 }
 
 function onProcessExit() {
