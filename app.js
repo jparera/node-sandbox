@@ -43,6 +43,7 @@ function onProcessExit() {
 }
 
 setTimeout(task, 5000);
+setInterval(task, 10000);
 
 function task() {
 	console.log('[%d] Task.', process.pid);
