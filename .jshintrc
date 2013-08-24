@@ -1,0 +1,12 @@
+{
+	"node": true,
+	"curly": true,
+	"eqeqeq": true,
+	"immed": true,
+	"noarg": true,
+	"trailing": true,
+	"quotmark": "double",
+	"undef": true,
+	"unused": true,
+	"boss": true
+}
